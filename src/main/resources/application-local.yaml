@@ -1,0 +1,9 @@
+
+spring:
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/bazar_banco'
+    username: root
+    password: bazar_1234
+  jpa:
+    hibernate:
+      ddl-auto: none
