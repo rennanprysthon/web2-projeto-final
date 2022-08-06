@@ -2,6 +2,8 @@ package br.edu.ifpe.recife.bazar.domains;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class Lote {
     @Column(name = "id")
     private Long id;
     @Column(name = "data_entrega")
-    private Timestamp dataEntrega;
+    private LocalDateTime dataEntrega;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_orgao_donatario")
     private OrgaoDonatario orgaoDonatario;
@@ -31,11 +33,11 @@ public class Lote {
         this.id = id;
     }
 
-    public Timestamp getDataEntrega() {
+    public LocalDateTime getDataEntrega() {
         return dataEntrega;
     }
 
-    public void setDataEntrega(Timestamp dataEntrega) {
+    public void setDataEntrega(LocalDateTime dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
 

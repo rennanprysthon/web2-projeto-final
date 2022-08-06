@@ -5,15 +5,20 @@ import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
 import br.edu.ifpe.recife.bazar.dtos.LoteDTO;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
+import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoNaoAtingidoException;
 import br.edu.ifpe.recife.bazar.repository.LoteRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
 public class LoteService {
+    private static final Long MAX_MINUTES = 30L;
+    private static final String ERROR_MINUTES_MESSAGE = "Tem que aguardar 30 minutos da criacao do lote para poder deleta-lo. So se passaram %s minutos";
+
     private final LoteRepository _loteRepository;
     private final OrgaoDonatarioService _orgaoDonatarioService;
     private final OrgaoFiscalizadorService _orgaoFiscalizadorService;
@@ -30,7 +35,7 @@ public class LoteService {
 
         Lote lote = new Lote();
         lote.setId(null);
-        lote.setDataEntrega(new Timestamp(new Date().getTime()));
+        lote.setDataEntrega(LocalDateTime.now());
         lote.setOrgaoFiscalizador(orgaoFiscalizador);
         lote.setOrgaoDonatario(orgaoDonatario);
 
@@ -52,6 +57,8 @@ public class LoteService {
     public void deletarLote(Long id) {
         Lote lote = this._findLoteById(id);
 
+        _verificarTempoDataEntrega(lote);
+
         this._loteRepository.delete(lote);
     }
 
@@ -65,10 +72,13 @@ public class LoteService {
     }
 
     private void _verificarTempoDataEntrega(Lote lote) {
-        Timestamp dataEntrega = lote.getDataEntrega();
-        Timestamp dataAtual = new Timestamp(new Date().getTime());
-        Long diferenca = dataAtual.getTime() - dataEntrega.getTime();
+        LocalDateTime dataEntrega = lote.getDataEntrega();
+        LocalDateTime dataAtual = LocalDateTime.now();
 
-        System.out.println(diferenca);
+        Long minutes = dataEntrega.until(dataAtual, ChronoUnit.MINUTES);
+
+        if (minutes <= MAX_MINUTES) {
+            throw new TempoMinimoNaoAtingidoException(String.format(ERROR_MINUTES_MESSAGE, minutes));
+        }
     }
 }
