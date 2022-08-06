@@ -1,8 +1,12 @@
 package br.edu.ifpe.recife.bazar.dtos;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LoteNewDTO {
     private Long orgaoDonatarioId;
     private Long orgaoFiscalizadorId;
+    private Set<ProdutoNewDTO> produtos = new HashSet<>();
 
     public LoteNewDTO() {}
 
@@ -20,5 +24,13 @@ public class LoteNewDTO {
 
     public void setOrgaoFiscalizadorId(Long orgaoFiscalizadorId) {
         this.orgaoFiscalizadorId = orgaoFiscalizadorId;
+    }
+
+    public Set<ProdutoNewDTO> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(Set<ProdutoNewDTO> produtos) {
+        this.produtos = produtos;
     }
 }

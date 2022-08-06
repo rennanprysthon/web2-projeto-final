@@ -5,6 +5,7 @@ import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
 import br.edu.ifpe.recife.bazar.domains.Produto;
 import br.edu.ifpe.recife.bazar.dtos.LoteNewDTO;
+import br.edu.ifpe.recife.bazar.dtos.ProdutoNewDTO;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
 import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoAtingidoException;
 import br.edu.ifpe.recife.bazar.repository.LoteRepository;
@@ -12,8 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 public class LoteService {
@@ -39,8 +43,11 @@ public class LoteService {
         lote.setDataEntrega(LocalDateTime.now());
         lote.setOrgaoFiscalizador(orgaoFiscalizador);
         lote.setOrgaoDonatario(orgaoDonatario);
+        lote = this._loteRepository.save(lote);
 
-        return this._loteRepository.save(lote);
+        lote = _addProductsToLote(lote, loteNewDTO.getProdutos());
+
+        return lote;
     }
 
     public void editarLote(Lote lote, Long id) {
@@ -88,5 +95,26 @@ public class LoteService {
         if (minutes >= MAX_MINUTES) {
             throw new TempoMinimoAtingidoException(ERROR_MINUTES_MESSAGE);
         }
+    }
+
+    private Lote _addProductsToLote(Lote lote, Set<ProdutoNewDTO> produtosDTO) {
+        if (produtosDTO.isEmpty()) {
+            return lote;
+        }
+
+        Produto produto = null;
+        Set<Produto> produtos = new HashSet<>();
+
+        for (ProdutoNewDTO produtoDTO : produtosDTO) {
+            produto = new Produto();
+            produto.setDescricao(produtoDTO.getDescricao());
+            produto.setNome(produtoDTO.getNome());
+            produto.setLote(lote);
+            produtos.add(produto);
+        }
+
+        lote.setProdutos(produtos);
+
+        return this._loteRepository.save(lote);
     }
 }

@@ -22,7 +22,7 @@ public class Lote {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_orgao_fiscalizador")
     private OrgaoFiscalizador orgaoFiscalizador;
-    @OneToMany(mappedBy = "lote")
+    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL)
     private Set<Produto> produtos = new HashSet<>();
 
     public Long getId() {
