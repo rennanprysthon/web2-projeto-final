@@ -1,5 +1,6 @@
 package br.edu.ifpe.recife.bazar.controllers;
 
+import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
 import br.edu.ifpe.recife.bazar.service.OrgaoFiscalizadorService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orgao-fiscalizador")
@@ -15,6 +17,13 @@ public class OrgaoFiscalizadorController {
 
     public OrgaoFiscalizadorController(OrgaoFiscalizadorService orgaoFiscalizadorService) {
         this._orgaoFiscalizadorService = orgaoFiscalizadorService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrgaoFiscalizador>> buscarTodos() {
+        List<OrgaoFiscalizador> orgaoFiscalizadores = this._orgaoFiscalizadorService.buscarTodos();
+
+        return ResponseEntity.ok(orgaoFiscalizadores);
     }
 
     @GetMapping("/{id}")

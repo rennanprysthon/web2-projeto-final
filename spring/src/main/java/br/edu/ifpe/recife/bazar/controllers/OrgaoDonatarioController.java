@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -17,6 +18,13 @@ public class OrgaoDonatarioController {
 
     public OrgaoDonatarioController(OrgaoDonatarioService orgaoDonatarioService) {
         this._orgaoDonatarioService = orgaoDonatarioService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrgaoDonatario>> buscarTodos() {
+        List<OrgaoDonatario> orgaoDonatarios = this._orgaoDonatarioService.buscarTodos();
+
+        return ResponseEntity.ok(orgaoDonatarios);
     }
 
     @GetMapping("/{id}")

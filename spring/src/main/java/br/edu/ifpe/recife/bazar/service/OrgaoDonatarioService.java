@@ -6,6 +6,7 @@ import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
 import br.edu.ifpe.recife.bazar.repository.OrgaoDonatarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -35,5 +36,9 @@ public class OrgaoDonatarioService {
     private OrgaoDonatario _findById(Long id) {
         return this._orgaoDonatarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFound("Orgao Donatario com id " + id + " nao foi encontrado"));
+    }
+
+    public List<OrgaoDonatario> buscarTodos() {
+        return this._orgaoDonatarioRepository.findAll();
     }
 }
