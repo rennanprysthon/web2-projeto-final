@@ -1,0 +1,27 @@
+.navigation {
+  padding: 20px 0;
+  color: #fff;
+  ul {
+    display: flex;
+
+    li {
+      & + li {
+        margin-left: 20px;
+      }
+
+      a {
+
+        &.--active::after {
+          border-bottom: 4px solid #444;
+        }
+
+        &::after{
+          content: '';
+          display: block;
+          margin-top: 5px;
+          border-bottom: 4px solid #5555;
+        }
+      }
+    }
+  }
+}
