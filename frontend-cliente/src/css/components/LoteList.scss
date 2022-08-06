@@ -1,0 +1,20 @@
+.lote-list {
+  .lote-list__item {
+    background-color: #888;
+    border-bottom: 4px solid #444;
+    padding: 20px;
+
+    h2 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+  }
+
+  .product-list {
+    &__item {
+      list-style: decimal-leading-zero;
+      margin-left: 40px;
+      font-weight: 500;
+    }
+  }
+}

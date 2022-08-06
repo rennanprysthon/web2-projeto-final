@@ -1,0 +1,11 @@
+.header {
+  padding: 20px;
+  background-color: #ce5eeb;
+  display: flex;
+
+  &__label {
+    font-weight: bold;
+    color: #fff;
+    margin-right: 10px;
+  }
+}
