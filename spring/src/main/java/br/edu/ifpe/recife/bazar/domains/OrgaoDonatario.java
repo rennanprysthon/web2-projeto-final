@@ -1,5 +1,7 @@
 package br.edu.ifpe.recife.bazar.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +23,8 @@ public class OrgaoDonatario {
     private String horarioFuncionamento;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany
+    @OneToMany(mappedBy = "orgaoDonatario", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Lote> lotes = new HashSet<>();
 
     public Long getId() {
