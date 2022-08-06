@@ -3,7 +3,7 @@ package br.edu.ifpe.recife.bazar.service;
 import br.edu.ifpe.recife.bazar.domains.Lote;
 import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
-import br.edu.ifpe.recife.bazar.dtos.LoteDTO;
+import br.edu.ifpe.recife.bazar.dtos.LoteNewDTO;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
 import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoAtingidoException;
 import br.edu.ifpe.recife.bazar.repository.LoteRepository;
@@ -28,9 +28,9 @@ public class LoteService {
         this._orgaoFiscalizadorService = _orgaoFiscalizadorService;
     }
 
-    public Lote criarLote(LoteDTO loteDTO) {
-        OrgaoDonatario orgaoDonatario = this._orgaoDonatarioService.buscarPorId(loteDTO.getOrgaoDonatarioId());
-        OrgaoFiscalizador orgaoFiscalizador = this._orgaoFiscalizadorService.buscarPorId(loteDTO.getOrgaoFiscalizadorId());
+    public Lote criarLote(LoteNewDTO loteNewDTO) {
+        OrgaoDonatario orgaoDonatario = this._orgaoDonatarioService.buscarPorId(loteNewDTO.getOrgaoDonatarioId());
+        OrgaoFiscalizador orgaoFiscalizador = this._orgaoFiscalizadorService.buscarPorId(loteNewDTO.getOrgaoFiscalizadorId());
 
         Lote lote = new Lote();
         lote.setId(null);

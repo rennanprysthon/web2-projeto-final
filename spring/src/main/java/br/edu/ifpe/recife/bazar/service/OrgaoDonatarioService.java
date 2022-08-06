@@ -1,9 +1,12 @@
 package br.edu.ifpe.recife.bazar.service;
 
+import br.edu.ifpe.recife.bazar.domains.Lote;
 import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
 import br.edu.ifpe.recife.bazar.repository.OrgaoDonatarioRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class OrgaoDonatarioService {
@@ -21,6 +24,12 @@ public class OrgaoDonatarioService {
 
     public OrgaoDonatario buscarPorId(Long id) {
         return this._findById(id);
+    }
+
+    public Set<Lote> buscarLotesPorOrgao(Long id) {
+        OrgaoDonatario orgaoDonatario = this._findById(id);
+
+        return orgaoDonatario.getLotes();
     }
 
     private OrgaoDonatario _findById(Long id) {

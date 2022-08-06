@@ -1,10 +1,10 @@
 package br.edu.ifpe.recife.bazar.dtos;
 
-public class LoteDTO {
+public class LoteNewDTO {
     private Long orgaoDonatarioId;
     private Long orgaoFiscalizadorId;
 
-    public LoteDTO() {}
+    public LoteNewDTO() {}
 
     public Long getOrgaoDonatarioId() {
         return orgaoDonatarioId;

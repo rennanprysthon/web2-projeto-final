@@ -1,7 +1,7 @@
 package br.edu.ifpe.recife.bazar.controllers;
 
 import br.edu.ifpe.recife.bazar.domains.Lote;
-import br.edu.ifpe.recife.bazar.dtos.LoteDTO;
+import br.edu.ifpe.recife.bazar.dtos.LoteNewDTO;
 import br.edu.ifpe.recife.bazar.service.LoteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +48,8 @@ public class LoteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criarLote(@RequestBody LoteDTO loteDTO) {
-        Lote loteCriado =this._loteService.criarLote(loteDTO);
+    public ResponseEntity<?> criarLote(@RequestBody LoteNewDTO loteNewDTO) {
+        Lote loteCriado =this._loteService.criarLote(loteNewDTO);
 
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
