@@ -1,7 +1,7 @@
 package br.edu.ifpe.recife.bazar.controllers;
 
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
-import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoNaoAtingidoException;
+import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoAtingidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,8 +22,8 @@ public class ErrorController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @ExceptionHandler(value = {TempoMinimoNaoAtingidoException.class})
-    public ResponseEntity<HashMap<String, String>> tempoMinimoNaoAtingidoException(TempoMinimoNaoAtingidoException entityNotFound) {
+    @ExceptionHandler(value = {TempoMinimoAtingidoException.class})
+    public ResponseEntity<HashMap<String, String>> tempoMinimoNaoAtingidoException(TempoMinimoAtingidoException entityNotFound) {
         HashMap<String, String> errorResponse = new HashMap<>();
         errorResponse.put("message", entityNotFound.getMessage());
         errorResponse.put("timestamp", String.valueOf(new Date().getTime()));

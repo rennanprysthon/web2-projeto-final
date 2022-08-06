@@ -5,19 +5,18 @@ import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
 import br.edu.ifpe.recife.bazar.dtos.LoteDTO;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
-import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoNaoAtingidoException;
+import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoAtingidoException;
 import br.edu.ifpe.recife.bazar.repository.LoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
 public class LoteService {
     private static final Long MAX_MINUTES = 30L;
-    private static final String ERROR_MINUTES_MESSAGE = "Tem que aguardar 30 minutos da criacao do lote para poder deleta-lo. So se passaram %s minutos";
+    private static final String ERROR_MINUTES_MESSAGE = "Tempo maximo para excluir  o lote ja passou.";
 
     private final LoteRepository _loteRepository;
     private final OrgaoDonatarioService _orgaoDonatarioService;
@@ -77,8 +76,8 @@ public class LoteService {
 
         Long minutes = dataEntrega.until(dataAtual, ChronoUnit.MINUTES);
 
-        if (minutes <= MAX_MINUTES) {
-            throw new TempoMinimoNaoAtingidoException(String.format(ERROR_MINUTES_MESSAGE, minutes));
+        if (minutes >= MAX_MINUTES) {
+            throw new TempoMinimoAtingidoException(ERROR_MINUTES_MESSAGE);
         }
     }
 }
