@@ -3,6 +3,7 @@ package br.edu.ifpe.recife.bazar.service;
 import br.edu.ifpe.recife.bazar.domains.Lote;
 import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
 import br.edu.ifpe.recife.bazar.domains.OrgaoFiscalizador;
+import br.edu.ifpe.recife.bazar.domains.Produto;
 import br.edu.ifpe.recife.bazar.dtos.LoteNewDTO;
 import br.edu.ifpe.recife.bazar.exceptions.EntityNotFound;
 import br.edu.ifpe.recife.bazar.exceptions.TempoMinimoAtingidoException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LoteService {
@@ -63,6 +65,13 @@ public class LoteService {
 
     public List<Lote> buscarTodos() {
         return this._loteRepository.findAll();
+    }
+
+
+    public Set<Produto> buscarProdutosPorLote(Long id) {
+        Lote lote = this._findLoteById(id);
+
+        return lote.getProdutos();
     }
 
     private Lote _findLoteById(Long id) {

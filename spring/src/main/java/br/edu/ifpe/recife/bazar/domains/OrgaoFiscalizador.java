@@ -17,7 +17,7 @@ public class OrgaoFiscalizador {
     private String nome;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(mappedBy = "orgaoFiscalizador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orgaoFiscalizador", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Lote> lotes = new HashSet<>();
 

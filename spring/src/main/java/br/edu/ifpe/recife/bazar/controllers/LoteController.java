@@ -1,6 +1,7 @@
 package br.edu.ifpe.recife.bazar.controllers;
 
 import br.edu.ifpe.recife.bazar.domains.Lote;
+import br.edu.ifpe.recife.bazar.domains.Produto;
 import br.edu.ifpe.recife.bazar.dtos.LoteNewDTO;
 import br.edu.ifpe.recife.bazar.service.LoteService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "lote")
@@ -31,6 +33,13 @@ public class LoteController {
         Lote lote = this._loteService.buscarLotePorId(id);
 
         return ResponseEntity.ok(lote);
+    }
+
+    @GetMapping("/{id}/produtos")
+    public ResponseEntity<Set<Produto>> buscarProdutosPorLote(@PathVariable("id") Long id) {
+        Set<Produto> produtos = this._loteService.buscarProdutosPorLote(id);
+
+        return ResponseEntity.ok(produtos);
     }
 
     @DeleteMapping("/{id}")

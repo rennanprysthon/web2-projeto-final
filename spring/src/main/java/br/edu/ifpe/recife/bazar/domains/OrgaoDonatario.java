@@ -23,7 +23,7 @@ public class OrgaoDonatario {
     private String horarioFuncionamento;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(mappedBy = "orgaoDonatario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orgaoDonatario", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Lote> lotes = new HashSet<>();
 

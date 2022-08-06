@@ -1,5 +1,7 @@
 package br.edu.ifpe.recife.bazar.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -14,8 +16,9 @@ public class Produto {
     private String nome;
     @Column(name = "descricao")
     private String descricao;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_lote")
+    @JsonIgnore
     private Lote lote;
 
     public Long getCodigo() {
