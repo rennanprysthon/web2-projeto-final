@@ -40,6 +40,7 @@ function Lote() {
   async function cadastrarLote(jsonValues) {
     let finalJson = {...jsonValues, produtos}
 
+
     await post('http://localhost:8080/lote', finalJson)
     getLotes()
     setProdutos([])
