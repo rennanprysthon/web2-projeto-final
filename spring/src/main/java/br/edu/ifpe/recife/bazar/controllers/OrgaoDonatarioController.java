@@ -2,6 +2,7 @@ package br.edu.ifpe.recife.bazar.controllers;
 
 import br.edu.ifpe.recife.bazar.domains.Lote;
 import br.edu.ifpe.recife.bazar.domains.OrgaoDonatario;
+import br.edu.ifpe.recife.bazar.dtos.LoteDTO;
 import br.edu.ifpe.recife.bazar.service.OrgaoDonatarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,8 @@ public class OrgaoDonatarioController {
     }
 
     @GetMapping("/{id}/lotes")
-    public ResponseEntity<Set<Lote>> buscarLotesPorOrgaoDonatario(@PathVariable("id") Long id) {
-        Set<Lote> lotes = this._orgaoDonatarioService.buscarLotesPorOrgao(id);
+    public ResponseEntity<Set<LoteDTO>> buscarLotesPorOrgaoDonatario(@PathVariable("id") Long id) {
+        Set<LoteDTO> lotes = this._orgaoDonatarioService.buscarLotesPorOrgao(id);
 
         return ResponseEntity.ok(lotes);
     }
